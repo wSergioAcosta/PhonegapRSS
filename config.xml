@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.camden.rssviewer4"
+        versionCode="10" 
+        version   = "5.0.0">
+
+    <name>PhonegapRSS</name>
+
+    <description>
+		Test
+    </description>
+
+    <author href="" email="">
+    </author>
+
+    <preference name="phonegap-version" value="2.7.0" />
+
+    <icon src="icons/Feed_128x128.png" />
+
+    <gap:plugin name="ChildBrowser" />
+
+</widget>
