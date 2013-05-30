@@ -1,7 +1,7 @@
 // JavaScript Document
 
 //globals
-var rssSource = "http://www.bbc.co.uk/mundo/index.xml";
+var rssSource = "http://www.npr.org/rss/rss.php?id=1049";
 var entries = [];
 
 /*
@@ -25,6 +25,8 @@ function getRSS(){
 function getAjaxRSS(){
 	$.ajax({
 		url:rssSource,
+		type:'GET',
+		dataType:"xml",
 		success:function(res,code) {
 			entries = [];
 			var xml = $(res);
@@ -33,7 +35,8 @@ function getAjaxRSS(){
 				entry = { 
 					title:$(v).find("title").text(), 
 					link:$(v).find("link").text(), 
-					description:$.trim($(v).find("description").text())
+					description:$.trim($(v).find("description").text()),
+					content:$(v).find("encoded").text()
 				};
 				entries.push(entry);
 			});
@@ -57,14 +60,15 @@ function getAjaxRSS(){
 function renderEntries(entries) {
     var s = '';
     $.each(entries, function(i, v) {
-        s += '<li><a href="#contentPage" class="contentLink" data-entryid="'+i+'">' + v.title + '</a></li>';
+		$page = '<div class="page"><div class="wrapper"><div class="scroller"><h5 class="title" data-entryid="'+i+'">' + v.title + '</h5><p class="description">' + v.description + '</p><p> ' + v.content + ' </p></div></div></div>';
+	    $("#pageScroller").append($page);
     });
-    $("#linksList").html(s);
-    $("#linksList").listview("refresh");		
+	
+	start(entries.length);
 }
 
 //Listen for main page
-$(document).bind('pageinit', function(){
+$(document).on('ready', function(){
 	getAjaxRSS();
 	});
 
