@@ -19,5 +19,9 @@
     <icon src="icons/Feed_128x128.png" />
 
     <gap:plugin name="ChildBrowser" />
+	
+	
+	<access origin="http://www.wunderman.com.uy" />
+	<access origin="http://www.mtv.com" />
 
 </widget>
