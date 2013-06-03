@@ -1,7 +1,10 @@
 // JavaScript Document
 
 //globals
-var rssSource = "http://www.npr.org/rss/rss.php?id=1049";
+//var rssSource = "http://www.tvshow.com.uy/rss/";
+//var rssSource = "http://www.npr.org/rss/rss.php?id=1001";
+//var rssSource = "http://www.wunderman.com.uy/tmp/sergio/rss/proxy.php?url=http://www.mtv.com/rss/news/news_full.jhtml";
+var rssSource = "http://www.mtv.com/rss/news/news_full.jhtml";
 var entries = [];
 
 /*
@@ -26,7 +29,8 @@ function getAjaxRSS(){
 	$.ajax({
 		url:rssSource,
 		type:'GET',
-		dataType:"xml",
+		dataType:"document",
+		crossDomain: true,
 		success:function(res,code) {
 			entries = [];
 			var xml = $(res);

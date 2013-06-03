@@ -1,9 +1,8 @@
 <?php
 
-// File Name: proxy.php
-if (!isset($_GET['url'])) die();
-$url = urldecode($_GET['url']);
-$url = 'http://' . str_replace('http://', '', $url); // Avoid accessing the file system
-echo file_get_contents($url);
+  header('Content-type: application/xml');
+  $file = file_get_contents($_GET['url']);
+  $file = preg_replace('/\s+/',' ', $file); // Replace repeated whitespace with single spaces.
+  echo $file;
 
 ?>
