@@ -2,9 +2,9 @@
 
 //globals
 //var rssSource = "http://www.tvshow.com.uy/rss/";
-//var rssSource = "http://www.npr.org/rss/rss.php?id=1001";
+var rssSource = "http://www.npr.org/rss/rss.php?id=1001";
 //var rssSource = "http://www.wunderman.com.uy/tmp/sergio/rss/proxy.php?url=http://www.mtv.com/rss/news/news_full.jhtml";
-var rssSource = "http://www.mtv.com/rss/news/news_full.jhtml";
+//var rssSource = "http://www.mtv.com/rss/news/news_full.jhtml";
 var entries = [];
 
 /*
@@ -25,6 +25,8 @@ function getRSS(){
 }
 */
 
+var storage;
+
 function getAjaxRSS(){
 	$.ajax({
 		url:rssSource,
@@ -42,10 +44,16 @@ function getAjaxRSS(){
 					description:$.trim($(v).find("description").text()),
 					content:$(v).find("encoded").text()
 				};
+
 				entries.push(entry);
+
+				//guarda en webSQL
+				storage.insert(entry);
 			});
 			//store entries
-			localStorage["entries"] = JSON.stringify(entries);
+			//guarda en local storage
+			//localStorage["entries"] = JSON.stringify(entries);
+
 			renderEntries(entries);
 		},
 		error:function(jqXHR,status,error) {
@@ -73,7 +81,7 @@ function renderEntries(entries) {
 
 //Listen for main page
 $(document).on('ready', function(){
-	getAjaxRSS();
+	storage = new WebSQLStorage(getAjaxRSS());
 	});
 
 //Listen for the content page to load
